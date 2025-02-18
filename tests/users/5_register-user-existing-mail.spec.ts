@@ -12,20 +12,19 @@ test.describe('Correct signup flow', () => {
         await consentCookie(page);
     });
 
-    test('Correct login', async () => {
+    test('Login with existing mail', async () => {
         // Click the Signup / Login button
         await page.locator('a:has-text(" Signup / Login")').click();
-
-        // Login User
-        await expect(page.locator('text="Login to your account"')).toBeVisible();
-        await page.fill('input[data-qa="login-email"]', 'giovanna-volpato@tuamaquelaursa.com');
-        await page.fill('input[data-qa="login-password"]', 'as)jh');
-        await page.click('button[data-qa="login-button"]');
         
-        // Login inavalid message
-        await expect(page.locator('text="Your email or password is incorrect!"')).toBeVisible();
+        await expect(page.locator('text="New User Signup!"')).toBeVisible();
+        await page.fill('input[data-qa="signup-name"]', 'Andres Silva');
+        await page.fill('input[data-qa="signup-email"]', 'giovanna-volpato@tuamaeaquelaursa.com');
+        await page.click('button[data-qa="signup-button"]');
+
+        // Warning about the already used email
+        await expect(page.locator('text="Email Address already exist!"')).toBeVisible();
     });
 
- 
+
 
 })

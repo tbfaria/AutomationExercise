@@ -9,14 +9,8 @@ test.describe('Sign-Up flow', () => {
     test.beforeAll(async ({ browser }) => {
 
         page = await browser.newPage();
-
-        // Navigate to page
-        //await page.goto('/');
-        // Accept consent
-        //await page.locator('.fc-dialog-container').waitFor({ state: 'visible' });
-        //await page.locator('.fc-button-label:has-text("Consent")').click();
+        //Consent Cookies and navigate to homepage
         await consentCookie(page);
-
     });
 
     test('Fill Sign-Up data', async () => {

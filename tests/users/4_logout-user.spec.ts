@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { delete_user } from './delete';
+import { consentCookie } from '../consent';
 
 test.describe('Correct signup flow', () => {
     let page;
@@ -7,12 +8,8 @@ test.describe('Correct signup flow', () => {
     test.beforeAll(async ({ browser }) => {
 
         page = await browser.newPage();
-
-        // Navigate to page
-        await page.goto('/');
-        // Accept consent
-        await page.locator('.fc-dialog-container').waitFor({ state: 'visible' });
-        await page.locator('.fc-button-label:has-text("Consent")').click();
+        //Consent Cookies and navigate to homepage
+        await consentCookie(page);
     });
 
     test('Correct login', async () => {
@@ -30,7 +27,6 @@ test.describe('Correct signup flow', () => {
     test('Verify logout', async ()=> {
         const userGreeting = page.locator('.i.fa.fa-user');
         await expect(userGreeting).toHaveText('Logged in as Andres Cook');
-
         await page.locator('a:text(" Logout")').click();
     })
 
